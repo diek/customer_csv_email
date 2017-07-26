@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Exporter{% endblock %}
+
+{% block content %}
+  <h3>index</h3>
+  <div class="{{ container_class|default:"container" }}">
+    <form method="GET" id="my_form">
+    <input type="button" id="submitBtn" value="Submit" />
+    <table class="table table-striped table-condensed table-hover" id="customer-list">
+      <thead>
+        <tr>
+          <th class="col-sm-2">Last Name</th>
+          <th class="col-sm-2">First Name</th>
+          <th class="col-sm-3">Company</th>
+          <th class="col-sm-2">City</th>
+          <th class="col-sm-2">Country</th>
+          <th class="col-sm-1">Checkbox</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for customer in customers %}
+        <tr>
+          <td>{{ customer.last_name }}</td>
+          <td>{{ customer.first_name }}</td>
+          <td>{{ customer.company|default:"nil" }}</td>
+          <td>{{ customer.city }}</td>
+          <td>{{ customer.country }}</td>
+          <td><input type="checkbox" name="customer" value="{{ customer.pk }}"</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </form>
+  </div>
+  {% endblock %}
+  {% block javascripts %}
+  {{ block.super }}
+  <script>
+  $(function () {
+      $('#submitBtn').on('click', function () {
+          get_checked();
+      });
+  });
+  function get_checked() {
+
+      $('#customer-list tr').each(function () {
+          $(this).find('td input:checked').each(function () {
+              console.log('checked ' + this.value)
+          });
+      });
+  }
+
+  </script>
+{% endblock %}
