@@ -4,12 +4,14 @@ import csv
 import datetime
 import json
 
+from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render
 
 from .models import Customers
 
 from .forms import ReportForm
+
 
 # From Big Nige, @djangobook.com, some experimentation
 def display_meta(request):
@@ -37,11 +39,15 @@ def report(request):
             writer.writerow(['Date', 'Name', 'Job', 'Duration'])
             for shift in shifts:
                 writer.writerow([shift.date, shift.employee, shift.job, shift.duration])
-
+            messages.success(request, 'CSV created successfully!')
             return response
-
     return render(request, 'exporter/report.html', {
         'form': form,
         'customers': customers,
-        'container_class': 'container-fluid',
     })
+
+    # json_data = request.POST.get('data', None)
+    # if data:
+    #     data = json.loads(json_data)
+
+    # print data.name

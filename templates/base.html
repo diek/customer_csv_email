@@ -8,6 +8,16 @@
 </head>
 <body>
   <h1>Export CSV</h1>
+  {% if messages %}
+    <div class="row">
+      <div class="col-md-12">
+        {% for message in messages %}
+          <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
   {% block content%}
   {% endblock %}
   {% block javascripts %}

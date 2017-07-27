@@ -4,7 +4,7 @@
 {% block title %}Exporter{% endblock %}
 
 {% block content %}
-  <h3>index</h3>
+  <h3>Customer List</h3>
   <div class="{{ container_class|default:"container" }}">
     <form method="GET" id="my_form">
     <input type="button" id="submitBtn" value="Submit" />
@@ -40,17 +40,22 @@
   <script>
   $(function () {
       $('#submitBtn').on('click', function () {
-          get_checked();
+          var customerList = [];
+          $('#customer-list tr').each(function () {
+            $(this).find('td input:checked').each(function () {
+              var checkedRow = $(this).closest('tr')
+              customerList.push({
+                'id': this.value,
+                'last_name': $(checkedRow).find('td:eq(0)').text(),
+                'first_name': $(checkedRow).find('td:eq(1)').text(),
+                'company': $(checkedRow).find('td:eq(2)').text(),
+                'city': $(checkedRow).find('td:eq(3)').text(),
+                'country': $(checkedRow).find('td:eq(4)').text()
+              })
+            });
+          });
+          console.log(JSON.stringify(customerList));
       });
   });
-  function get_checked() {
-
-      $('#customer-list tr').each(function () {
-          $(this).find('td input:checked').each(function () {
-              console.log('checked ' + this.value)
-          });
-      });
-  }
-
   </script>
 {% endblock %}
