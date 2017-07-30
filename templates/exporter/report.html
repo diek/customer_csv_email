@@ -6,13 +6,15 @@
 {% block content %}
   <h3>Customer List</h3>
   <div class="{{ container_class|default:"container" }}">
+  <div class="jumbotron">
     <form method="GET" id="my_form">
-    <input type="button" id="submitBtn" value="Submit" />
+    {% csrf_token %}
+    <input type="button" id="submitBtn" value="Submit"/>
     <table class="table table-striped table-condensed table-hover" id="customer-list">
       <thead>
         <tr>
-          <th class="col-sm-2">Last Name</th>
-          <th class="col-sm-2">First Name</th>
+          <th class="col-sm-2">Customer</th>
+          <th class="col-sm-2">Email</th>
           <th class="col-sm-3">Company</th>
           <th class="col-sm-2">City</th>
           <th class="col-sm-2">Country</th>
@@ -22,40 +24,21 @@
       <tbody>
         {% for customer in customers %}
         <tr>
-          <td>{{ customer.last_name }}</td>
-          <td>{{ customer.first_name }}</td>
+          <td>{{ customer}}</td>
+          <td>{{ customer.email }}</td>
           <td>{{ customer.company|default:"nil" }}</td>
           <td>{{ customer.city }}</td>
           <td>{{ customer.country }}</td>
-          <td><input type="checkbox" name="customer" value="{{ customer.pk }}"</td>
+          <td><input type="checkbox" name="customer" value="{{ customer.pk }}"></td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
     </form>
+    </div>
   </div>
   {% endblock %}
   {% block javascripts %}
   {{ block.super }}
-  <script>
-  $(function () {
-      $('#submitBtn').on('click', function () {
-          var customerList = [];
-          $('#customer-list tr').each(function () {
-            $(this).find('td input:checked').each(function () {
-              var checkedRow = $(this).closest('tr')
-              customerList.push({
-                'id': this.value,
-                'last_name': $(checkedRow).find('td:eq(0)').text(),
-                'first_name': $(checkedRow).find('td:eq(1)').text(),
-                'company': $(checkedRow).find('td:eq(2)').text(),
-                'city': $(checkedRow).find('td:eq(3)').text(),
-                'country': $(checkedRow).find('td:eq(4)').text()
-              })
-            });
-          });
-          console.log(JSON.stringify(customerList));
-      });
-  });
-  </script>
+  <script src="{% static "js/main.js" %}"></script>
 {% endblock %}

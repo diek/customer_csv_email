@@ -13,3 +13,6 @@ class Customers(models.Model):
     phone = models.CharField(max_length=24, default=None, blank=True, null=True)
     fax = models.CharField(max_length=24, default=None, blank=True, null=True)
     email = models.CharField(max_length=60)
+
+    def __str__(self):
+        return '{}, {}'.format(self.last_name, self.first_name)

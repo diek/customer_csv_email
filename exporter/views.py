@@ -5,7 +5,7 @@ import datetime
 import json
 
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
 from django.shortcuts import render
 
 from .models import Customers
@@ -20,6 +20,15 @@ def display_meta(request):
     for k in sorted(values):
         html.append('<tr><td>{}</td><td>{}</td></tr>'.format(k, values[k]))
     return HttpResponse('<table>%s</table>' % '\n'.join(html))
+
+
+def export(request):
+    if request.is_ajax() and request.POST:
+        print(request.POST.get('customer_data'))
+        data = {'message': "%s added" % request.POST.get('customer_data')}
+        return HttpResponse(json.dumps(data), content_type='application/json')
+    else:
+        raise Http404
 
 
 def report(request):
