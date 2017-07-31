@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "csv_export.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "customer_csv_email.settings")
 
 application = get_wsgi_application()

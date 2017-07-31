@@ -39,7 +39,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'csv_export.urls'
+ROOT_URLCONF = 'customer_csv_email.urls'
 
 TEMPLATES = [
     {
@@ -57,7 +57,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'csv_export.wsgi.application'
+WSGI_APPLICATION = 'customer_csv_email.wsgi.application'
 
 
 DATABASES = {

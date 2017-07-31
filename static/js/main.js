@@ -48,7 +48,6 @@ $(function () {
          url: "export/",  // the endpoint
          data: {customer_data: JSON.stringify(customerList)},
          success: function(data) {
-           console.log("success");
            $('#customer-form')[0].reset();
          },
          error : function(xhr,errmsg,err) {
@@ -57,7 +56,7 @@ $(function () {
         });
       }
       else{
-        console.log('nothing entered')
+        console.log('No items were entered')
       }
   });
 });
