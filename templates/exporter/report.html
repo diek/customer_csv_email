@@ -7,7 +7,7 @@
   <h3>Customer List</h3>
   <div class="{{ container_class|default:"container" }}">
   <div class="jumbotron">
-    <form method="GET" id="my_form">
+    <form method="GET" id="customer-form">
     {% csrf_token %}
     <input type="button" id="submitBtn" value="Submit"/>
     <table class="table table-striped table-condensed table-hover" id="customer-list">

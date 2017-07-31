@@ -40,17 +40,24 @@ $(function () {
           });
         });
       });
+      // check nothing selected
       // console.log(JSON.stringify(customerList));
-     $.ajax({
-       type: "POST",
-       url: "export/",  // the endpoint
-       data: {customer_data: JSON.stringify(customerList)},
-       success: function(data) {
-         console.log("success");
-       },
-       error : function(xhr,errmsg,err) {
-         console.log("An error");
-       }
-      });
+      if (customerList.length) {
+       $.ajax({
+         type: "POST",
+         url: "export/",  // the endpoint
+         data: {customer_data: JSON.stringify(customerList)},
+         success: function(data) {
+           console.log("success");
+           $('#customer-form')[0].reset();
+         },
+         error : function(xhr,errmsg,err) {
+           console.log("An error");
+         }
+        });
+      }
+      else{
+        console.log('nothing entered')
+      }
   });
 });

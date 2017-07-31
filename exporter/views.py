@@ -25,6 +25,7 @@ def display_meta(request):
 def export(request):
     if request.is_ajax() and request.POST:
         print(request.POST.get('customer_data'))
+        messages.success(request, 'Your stuff was updated successfully!')  # <-
         data = {'message': "%s added" % request.POST.get('customer_data')}
         return HttpResponse(json.dumps(data), content_type='application/json')
     else:
